@@ -35,7 +35,7 @@ src/
     profile.js              Name, public GitHub, interests, optional contact
     skills.js               Skills grouped by category, approval flags
     projects.js             Project entries and optional links/images
-    education.js            Course names, institution and campus
+    education.js            Course names and institution
 public/                     Local images and additional static HTML pages
 scripts/check.mjs           Rendered-link and build checks
 .github/workflows/          Pull request checks and manual Pages deployment
@@ -47,7 +47,7 @@ Change the dedicated data files rather than duplicating components. Text is rend
 
 ### Skills
 
-Every initial language (Python, Bash, PowerShell, PHP, HTML and CSS) is an **unconfirmed sample**, not an asserted skill. To confirm an entry, replace its description with an accurate learning context and set `approved: true`. Avoid ratings or expertise claims without evidence. Add or remove items or groups in `src/data/skills.js`. The tools/platforms category is intentionally empty.
+Every initial language (Python, Bash, PowerShell, PHP, HTML and CSS) is an **unconfirmed sample**, not an asserted skill. To confirm an entry, replace its description with an accurate learning context and set `approved: true`. Avoid ratings or expertise claims without evidence. Add or remove items or groups in `src/data/skills.js`. Each language uses a locally rendered SVG badge and a visible name, rather than a text list. The `icon` field selects a badge in `src/components/LanguageIcon.jsx`; unknown names use a generic code icon. No icon package or remote service is used. The tools/platforms category is intentionally empty.
 
 ### Projects
 
@@ -64,7 +64,7 @@ Cards omit optional fields automatically. Compress screenshots before adding the
 
 ### Education and contact
 
-The course renaming is described as one academic journey, not two separate qualifications. No dates, grades, award levels or certifications are supplied. Update only with confirmed facts.
+Education presents both course names together under Course, separated by `/`, as one academic journey rather than two qualifications. Campus, status and descriptions are omitted from the education data. Interest cards show their titles and icons without descriptions. No dates, grades, award levels or certifications are supplied. Update only with confirmed facts.
 
 GitHub is the only enabled contact link. `linkedin` and `email` in `profile.js` are `null` and do not render. Set them only after Adam approves publishing the actual details. A published email will be visible to everyone and may attract spam. No contact form is included.
 

@@ -406,11 +406,6 @@ h1 > span {
 .interest-card h3 {
   margin-top: 28px;
 }
-.interest-card p {
-  color: #aaa9a7;
-  font-size: 0.8rem;
-  margin-top: 10px;
-}
 .section-heading h2 {
   margin-top: 19px;
 }
@@ -464,18 +459,29 @@ h1 > span {
   font-size: 0.78rem;
   margin-top: 9px;
 }
-.skill-list {
-  list-style: none;
-  padding: 0;
-  margin: 25px 0 0;
+.language-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  margin-top: 25px;
 }
-.skill-list li {
-  padding-block: 13px;
-  border-top: 1px solid #303234;
+.language-tile {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
+  padding: 20px 8px 16px;
+  background: #1b1d1f;
+  border: 1px solid #343537;
+  border-radius: 5px;
+  text-align: center;
+}
+.language-icon {
+  width: 48px;
+  height: 48px;
+  color: #e5a17f;
+}
+.language-name {
   font-size: 0.85rem;
 }
 .skill-label {
@@ -665,26 +671,6 @@ h1 > span {
 .institution {
   font-size: 0.85rem;
   margin-top: 15px;
-}
-.previous-name {
-  border-left: 2px solid #55504a;
-  padding-left: 15px;
-  margin-top: 24px;
-}
-.previous-name > span {
-  font-size: 0.55rem;
-  letter-spacing: 0.1em;
-  color: #aaa5a0;
-}
-.previous-name p {
-  color: #ccc6c0;
-  font-size: 0.8rem;
-  margin-top: 5px;
-}
-.education-entry > p:last-child {
-  color: #aaa7a4;
-  font-size: 0.83rem;
-  margin-top: 22px;
 }
 .contact-section {
   background:
@@ -895,9 +881,6 @@ h1 > span {
   }
   .interest-card h3 {
     margin-top: 19px;
-  }
-  .interest-card p {
-    max-width: 450px;
   }
   .skill-group {
     padding: 23px;

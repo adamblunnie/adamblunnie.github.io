@@ -4,6 +4,7 @@ import { skillGroups } from "./data/skills";
 import { projects } from "./data/projects";
 import { education } from "./data/education";
 import { Icon } from "./components/Icon";
+import { LanguageIcon } from "./components/LanguageIcon";
 import { ExternalLink } from "./components/ExternalLink";
 import { SectionHeading } from "./components/SectionHeading";
 import { ProjectCard } from "./components/ProjectCard";
@@ -132,7 +133,6 @@ export default function App() {
                     <span className="card-number">0{index + 1}</span>
                   </div>
                   <h3>{interest.title}</h3>
-                  <p>{interest.description}</p>
                 </article>
               ))}
             </div>
@@ -152,7 +152,7 @@ export default function App() {
               i
             </span>
             <p>
-              <strong>Skills list in preparation.</strong> The entries below are
+              <strong>Skills in preparation.</strong> The entries below are
               samples awaiting my confirmation. They do not represent verified
               skills or proficiency.
             </p>
@@ -163,10 +163,11 @@ export default function App() {
                 <h3>{group.title}</h3>
                 <p>{group.description}</p>
                 {group.skills.length ? (
-                  <ul className="skill-list">
+                  <div className="language-grid">
                     {group.skills.map((skill) => (
-                      <li key={skill.name}>
-                        <span>{skill.name}</span>
+                      <div className="language-tile" key={skill.name}>
+                        <LanguageIcon name={skill.icon} />
+                        <span className="language-name">{skill.name}</span>
                         <span
                           className={`skill-label ${skill.approved ? "confirmed" : ""}`}
                         >
@@ -174,9 +175,9 @@ export default function App() {
                             ? skill.description
                             : "Sample · unconfirmed"}
                         </span>
-                      </li>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 ) : (
                   <div className="empty-skills">
                     <span aria-hidden="true">＋</span>
@@ -221,23 +222,14 @@ export default function App() {
               label="EDUCATION"
               title="Where the journey begins."
             >
-              Building my academic foundation at TUS Moylish.
+              Building my academic foundation at TUS.
             </SectionHeading>
             <div className="timeline">
               {education.map((item) => (
-                <article key={item.currentCourse} className="education-entry">
-                  <p className="eyebrow accent">{item.status}</p>
-                  <h3>{item.currentCourse}</h3>
-                  <p className="institution">
-                    {item.institution}
-                    <br />
-                    <span className="muted">{item.campus}</span>
-                  </p>
-                  <div className="previous-name">
-                    <span>PREVIOUS COURSE NAME</span>
-                    <p>{item.previousCourseName}</p>
-                  </div>
-                  <p>{item.description}</p>
+                <article key={item.course} className="education-entry">
+                  <p className="eyebrow accent">Course</p>
+                  <h3>{item.course}</h3>
+                  <p className="institution">{item.institution}</p>
                 </article>
               ))}
             </div>
