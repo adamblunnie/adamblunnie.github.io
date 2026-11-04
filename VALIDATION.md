@@ -18,6 +18,7 @@ Performed on 4 November 2026. This is a pre-publication check; the site has not 
 | External dependency review | Only React/React DOM at runtime; Vite and Tailwind for builds. No icon library, UI framework, remote font, analytics, widget, API, backend or external runtime request code. Tailwind's import is resolved at build time; SVG namespace URLs are identifiers, not requests |
 | Production exposure | No source maps, environment files, manifests or repository files in `dist/`; strict meta CSP and no-referrer present; no inline scripts |
 | GitHub Pages configuration | `/` base for the root user site; section navigation; official SHA-pinned Pages actions; separate build/deploy job permissions; OIDC; manual main-only deployment with explicit approval input |
+| Pull request CI | [Check portfolio run #1](https://github.com/adamblunnie/adamblunnie.github.io/actions/runs/41927344100) passed on GitHub (npm ci, audit, build and rendered checks) |
 | Whitespace | `git diff --check` passed |
 
 ## Checks that remain open
@@ -26,7 +27,7 @@ The managed environment did not expose the supported browser tool (`cua_repl.js`
 
 Before publishing, verify the actual page at mobile, tablet and desktop widths, 200% zoom, keyboard-only navigation, reduced motion and a screen reader. Inspect browser console, network requests and enforcement of the production CSP. Code and palette checks cannot establish rendered behaviour or full WCAG conformance.
 
-The GitHub Actions workflow, Pages configuration, HTTPS response headers and live URL have not been tested on the host. They require repository settings and an approved deployment. No settings were changed and no deployment was triggered. The first approved run should be reviewed for GitHub environment protection and Pages permission compatibility.
+The manual Pages deployment workflow, Pages configuration, HTTPS response headers and live URL have not been tested on the host. They require repository settings and an approved deployment. No settings were changed and no deployment was triggered. The first approved run should be reviewed for GitHub environment protection and Pages permission compatibility.
 
 No external profile availability check was required for content validation; GitHub is the sole public contact destination. Optional project repository, detail, screenshot, LinkedIn and email fields are unset.
 
