@@ -23,13 +23,13 @@ Performed on 4 November 2026. This is a pre-publication check; the site has not 
 
 ## Checks that remain open
 
-The managed environment did not expose the supported browser tool (`cua_repl.js`). Browser QA was skipped in accordance with the [Sites skill](skill://plugin_connector_1p_689987207de08191979cf68eca2941c6/sites/SKILL.md): “If `cua_repl.js` is unavailable, skip browser QA: do not start a preview server, install a browser, or improvise another browser-control path.” No alternative browser route or preview server was started.
+The managed environment did not expose the supported browser tool (`cua_repl.js`). Browser QA was skipped in accordance with the [Sites skill](skill://plugin_connector_1p_689987207de08191979cf68eca2941c6/sites/SKILL.md): “If `cua_repl.js` is unavailable, skip browser QA: do not start a preview server, install a browser, or improvise another browser-control path.” No alternative browser route or preview server was started. A later check of the supported preview CLI reported “preview relay unavailable”; an in-app preview is unavailable in this environment. The README provides local production-preview instructions instead.
 
 Before publishing, verify the actual page at mobile, tablet and desktop widths, 200% zoom, keyboard-only navigation, reduced motion and a screen reader. Inspect browser console, network requests and enforcement of the production CSP. Code and palette checks cannot establish rendered behaviour or full WCAG conformance.
 
 The manual Pages deployment workflow, Pages configuration, HTTPS response headers and live URL have not been tested on the host. They require repository settings and an approved deployment. No settings were changed and no deployment was triggered. The first approved run should be reviewed for GitHub environment protection and Pages permission compatibility.
 
-No external profile availability check was required for content validation; GitHub is the sole public contact destination. Optional project repository, detail, screenshot, LinkedIn and email fields are unset.
+GitHub and Adam’s supplied LinkedIn profile are the public contact destinations. They are plain HTTPS links without embeds or API calls; profile availability was not tested. Optional project repository, detail, screenshot and email fields are unset. The language names and FYP ID/title are supplied content, not pending approvals.
 
 ## Remaining risks
 

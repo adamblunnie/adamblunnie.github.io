@@ -3,7 +3,6 @@ import { readFile, readdir, stat } from "node:fs/promises";
 import path from "node:path";
 import { createServer } from "vite";
 import { renderToStaticMarkup } from "react-dom/server";
-import { skillGroups } from "../src/data/skills.js";
 
 // Render the actual component tree without starting a listening web server.
 const server = await createServer({
@@ -11,8 +10,14 @@ const server = await createServer({
 });
 let markup;
 try {
-  const developmentHtml = await server.transformIndexHtml("/", await readFile("index.html", "utf8"));
-  assert(!developmentHtml.includes('http-equiv="Content-Security-Policy"'), "Development response must permit Vite styles and HMR");
+  const developmentHtml = await server.transformIndexHtml(
+    "/",
+    await readFile("index.html", "utf8"),
+  );
+  assert(
+    !developmentHtml.includes('http-equiv="Content-Security-Policy"'),
+    "Development response must permit Vite styles and HMR",
+  );
   const { default: App } = await server.ssrLoadModule("/src/App.jsx");
   markup = renderToStaticMarkup(App());
 } finally {
@@ -35,9 +40,6 @@ for (const [, href] of markup.matchAll(/href="([^"]+)"/g)) {
 }
 assert(!markup.includes('href="#"'), "No empty placeholder links");
 assert(markup.includes("Skip to content"), "Skip link is present");
-if (skillGroups.some((group) => group.skills.some((skill) => !skill.approved))) {
-  assert(markup.includes("Sample · unconfirmed"), "Unconfirmed skills must be labelled");
-}
 for (const image of markup.matchAll(/<img\b[^>]*>/g)) {
   assert(/\balt="[^"]*"/.test(image[0]), "Images need alt attributes");
 }
@@ -73,7 +75,7 @@ assert(
   "No source metadata in output",
 );
 console.log(
-  `Passed: rendered section links, unique IDs, heading, skip link, placeholders, image alt attributes, CSP, local build assets and no source maps (${output.length} output files).`,
+  `Passed: rendered section links, unique IDs, heading, skip link, image alt attributes, CSP, local build assets and no source maps (${output.length} output files).`,
 );
 console.log(
   "Browser layout, interaction, colour contrast and assistive technology checks require a browser/manual review.",

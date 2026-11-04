@@ -23,6 +23,24 @@ npm run preview
 
 `dist/` is the complete portable static site. Build before previewing. The production CSP also applies in preview. `npm run check` renders the actual React tree without a listening server, validates internal links, heading/ID basics, image alt attributes, local build assets, the production CSP and the absence of source maps. It is a focused regression check, not a full accessibility audit.
 
+## Review the production site without publishing
+
+With Git and Node.js 24 LTS installed, open a terminal in the directory where you want the checkout:
+
+```sh
+git clone --branch feat/portfolio-v1 https://github.com/adamblunnie/adamblunnie.github.io.git
+cd adamblunnie.github.io
+npm ci
+npm run build
+npm run preview
+```
+
+Open **http://localhost:4173/** (or the address Vite prints if the port is busy). This serves the same `dist/` files that GitHub Pages will receive, including the production CSP. It runs on your computer and does not merge, deploy or publish anything. Press Ctrl+C to stop. The preview server binds to localhost by default.
+
+If you already have a checkout, use `git fetch origin`, then `git switch feat/portfolio-v1` and `git pull --ff-only`, followed by the npm commands above. Avoid overwriting any local changes.
+
+Review the appearance, scrolling, links and keyboard focus, then use your browser’s responsive/device mode to check mobile and tablet widths. Publication remains a separate, explicitly approved manual workflow.
+
 ## Source structure
 
 ```text
@@ -33,7 +51,7 @@ src/
   components/               Reusable cards, headings, links, icons, illustration
   data/
     profile.js              Name, public GitHub, interests, optional contact
-    skills.js               Skills grouped by category, approval flags
+    skills.js               Languages grouped by category with local icons
     projects.js             Project entries and optional links/images
     education.js            Course names and institution
 public/                     Local images and additional static HTML pages
@@ -47,7 +65,7 @@ Change the dedicated data files rather than duplicating components. Text is rend
 
 ### Skills
 
-Every initial language (Python, Bash, PowerShell, PHP, HTML and CSS) is an **unconfirmed sample**, not an asserted skill. To confirm an entry, replace its description with an accurate learning context and set `approved: true`. Avoid ratings or expertise claims without evidence. Add or remove items or groups in `src/data/skills.js`. Each language uses a locally rendered SVG badge and a visible name, rather than a text list. The `icon` field selects a badge in `src/components/LanguageIcon.jsx`; unknown names use a generic code icon. No icon package or remote service is used. The tools/platforms category is intentionally empty.
+Python, Bash, PowerShell, PHP, HTML and CSS are the languages supplied by Adam. They appear as local SVG icons with visible names, without proficiency ratings or invented descriptions. Add or remove items or groups in `src/data/skills.js`. The `icon` field selects a badge in `src/components/LanguageIcon.jsx`; unknown names use a generic code icon. No icon package or remote service is used. Empty groups, including the tools/platforms category, are hidden until entries are added.
 
 ### Projects
 
@@ -66,14 +84,14 @@ Cards omit optional fields automatically. Compress screenshots before adding the
 
 Education presents both course names together under Course, separated by `/`, as one academic journey rather than two qualifications. Campus, status and descriptions are omitted from the education data. Interest cards show their titles and icons without descriptions. No dates, grades, award levels or certifications are supplied. Update only with confirmed facts.
 
-GitHub is the only enabled contact link. `linkedin` and `email` in `profile.js` are `null` and do not render. Set them only after Adam approves publishing the actual details. A published email will be visible to everyone and may attract spam. No contact form is included.
+GitHub and Adam’s supplied public LinkedIn profile (`https://www.linkedin.com/in/adam-blunnie`) are enabled contact links. Email remains `null` and hidden until Adam adds it in future. A published email will be visible to everyone and may attract spam. No contact form is included.
 
-## Content approval before publication
+## Content and final review
 
-- Confirm/remove the six sample language entries and add accurate descriptions.
-- Confirm any tools/platforms before listing them.
-- Approve keeping the labelled final-year placeholder, or replace/remove it once real project information is available.
-- Optionally supply a public LinkedIn profile and professional email; leave `null` to omit them.
+The supplied language names, LinkedIn URL and FYP setup (`id: "FYP"`, title “Final-year project”) are confirmed instructions. They do not require another content approval. Future project details can be added when work is ready to share.
+
+- Add tools/platforms only when Adam supplies them.
+- Add email only when Adam chooses to provide it; it is not required for publication.
 - Review the course-renaming wording and student introduction for accuracy.
 
 Do not insert dates, qualification levels, work history, certifications or achievements without Adam's confirmation.
@@ -93,7 +111,7 @@ The PR workflow has read-only repository permission and never deploys. The manua
 
 ## Security and privacy decisions
 
-- Static files only: no backend, database, login, API calls, tracking, cookies, embedded widgets, service workers or account connections. GitHub is linked, never embedded or queried. Visitors' browsers request only same-origin site assets until they follow a link.
+- Static files only: no backend, database, login, API calls, tracking, cookies, embedded widgets, service workers or account connections. GitHub and LinkedIn are linked, never embedded or queried. Visitors' browsers request only same-origin site assets until they follow a link.
 - Restrictive HTML **Content Security Policy**: default deny; scripts, styles, images and fonts restricted to the same origin; connections, objects and forms blocked; base URI blocked; insecure requests upgraded. No inline scripts/styles, unsafe HTML, eval-based rendering or external CDN dependencies.
 - GitHub Pages does **not** support repository-defined arbitrary response headers. HTML meta CSP cannot enforce `frame-ancestors`, CSP reporting, or a header-only sandbox. This site cannot configure response `X-Frame-Options`, `X-Content-Type-Options`, `Permissions-Policy` or HSTS. Unsupported directives are not presented as effective protection. Some headers may be supplied by GitHub itself; verify the live response after approved publication. Framing protection would require a host offering custom headers. No extra proxy or service is added.
 - `no-referrer` prevents referrer disclosure through supported browsers. External links use HTTPS and `rel="noopener noreferrer"` and open in the same tab. Optional screenshot paths are local; project details use local file/section navigation. No secrets belong in public data files or `VITE_*` variables.

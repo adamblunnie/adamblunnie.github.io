@@ -147,45 +147,30 @@ export default function App() {
           >
             A growing record of languages, tools and technical learning.
           </SectionHeading>
-          <div className="notice">
-            <span className="notice-marker" aria-hidden="true">
-              i
-            </span>
-            <p>
-              <strong>Skills in preparation.</strong> The entries below are
-              samples awaiting my confirmation. They do not represent verified
-              skills or proficiency.
-            </p>
-          </div>
           <div className="skills-grid">
-            {skillGroups.map((group) => (
-              <article className="skill-group" key={group.title}>
-                <h3>{group.title}</h3>
-                <p>{group.description}</p>
-                {group.skills.length ? (
-                  <div className="language-grid">
-                    {group.skills.map((skill) => (
-                      <div className="language-tile" key={skill.name}>
-                        <LanguageIcon name={skill.icon} />
-                        <span className="language-name">{skill.name}</span>
-                        <span
-                          className={`skill-label ${skill.approved ? "confirmed" : ""}`}
-                        >
-                          {skill.approved
-                            ? skill.description
-                            : "Sample · unconfirmed"}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="empty-skills">
-                    <span aria-hidden="true">＋</span>
-                    <p>Confirmed tools will be added here.</p>
-                  </div>
-                )}
-              </article>
-            ))}
+            {skillGroups
+              .filter((group) => group.skills.length > 0)
+              .map((group) => (
+                <article className="skill-group" key={group.title}>
+                  <h3>{group.title}</h3>
+                  {group.description && <p>{group.description}</p>}
+                  {group.skills.length ? (
+                    <div className="language-grid">
+                      {group.skills.map((skill) => (
+                        <div className="language-tile" key={skill.name}>
+                          <LanguageIcon name={skill.icon} />
+                          <span className="language-name">{skill.name}</span>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="empty-skills">
+                      <span aria-hidden="true">＋</span>
+                      <p>Confirmed tools will be added here.</p>
+                    </div>
+                  )}
+                </article>
+              ))}
           </div>
         </section>
 
@@ -252,7 +237,7 @@ export default function App() {
               <p>
                 Interested in my learning or future projects?
                 <br />
-                You can find me on GitHub.
+                You can find me on GitHub and LinkedIn.
               </p>
             </div>
             <div className="contact-links">
@@ -267,7 +252,12 @@ export default function App() {
               </ExternalLink>
               {profile.linkedin && (
                 <ExternalLink href={profile.linkedin} className="contact-link">
-                  LinkedIn <Icon name="external" />
+                  <span>
+                    <span>
+                      LinkedIn<small>Adam Blunnie</small>
+                    </span>
+                  </span>{" "}
+                  <Icon name="external" />
                 </ExternalLink>
               )}
               {profile.email && (
