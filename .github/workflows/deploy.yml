@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       approved:
-        description: 'I approve publishing the current main branch to the public website'
+        description: "I approve publishing the current main branch to the public website"
         required: true
         type: boolean
         default: false
